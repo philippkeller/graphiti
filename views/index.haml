@@ -12,10 +12,8 @@
 %body.bp
   #header
     .menu
-      %h1
-        %a{href: '/'} Graphiti
-
-      %ul
+      %h2 Menu
+      %ul#navi
         %li
           %a{href: '/dashboards'}
             Dashboards
@@ -24,12 +22,29 @@
             Graphs
         %li
           %a{href: '/graphs/new'}
-            + New Graph
+            New Graph
+      %ul#controls
+        %li
+          %label{for: 'n'}
+            Horizontal number of graphs
+          %select{:name => 'n'}
+            %option{value: "2"}= "2"
+            %option{value: "3"}= "3"
+            %option{value: "4"}= "4"
+            %option{value: "5"}= "5"
+            %option{value: "6"}= "6"
+            %option{value: "8"}= "8"
+        %li
+          %label{for: 'last'}
+            Show last... (empty: each graph has own timing)
+          %select{:name => 'last'}
+            %option{value: "1 hour", selected: params[:x] == "1 hour"}= "1 hour"
   #container
     #view-controls
-      %label{for: 'auto-refresh'}
-        %input#auto-refresh{:name => 'auto-refresh', :type => 'checkbox', :checked => Graphiti.settings.auto_refresh['enabled'], 'data-interval' => Graphiti.settings.auto_refresh['interval']}
-          Refresh every #{Graphiti.settings.auto_refresh['interval']} seconds
+      -#
+        %label{for: 'auto-refresh'}
+          %input#auto-refresh{:name => 'auto-refresh', :type => 'checkbox', :checked => Graphiti.settings.auto_refresh['enabled'], 'data-interval' => Graphiti.settings.auto_refresh['interval']}
+            Refresh every #{Graphiti.settings.auto_refresh['interval']} seconds
     #loading-pane.pane
       %h2 ... Loading ...
     #dashboards-pane.pane{style: 'display:none;'}
@@ -191,9 +206,6 @@
         .clear
 
 
-  #footer
-    Graphiti #{Graphiti::VERSION}
-
   #templates{style: 'display:none'}
     .dashboard{style: 'display:none'}
       %a.view
@@ -211,17 +223,6 @@
     .graph{style: 'display:none'}
       %a.edit
         %img.ggraph{src: '/images/loading.gif'}
-      .desc
-        %h3.title &nbsp;
-        %ul.actions
-          %li
-            %form.delete{method: 'delete', action: '/dashboards/'}
-              %input{type: 'hidden', name: 'uuid'}
-              %input{type: 'hidden', name: 'dashboard'}
-              %input{type: 'submit', value: 'Delete'}
-          %li
-            %a.edit
-              %button Edit
       .snapshot{style: 'display:none'}
         %a.view{target: 'blank'}
           %img{src: '/images/loading.gif'}

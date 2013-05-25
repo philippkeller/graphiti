@@ -228,6 +228,9 @@ var app = Sammy('body', function() {
     },
     loadAndRenderGraphs: function(url) {
       var $graphs = this.showPane('graphs', ' ');
+      if (url.search('#') > 0) {
+          url = url.split('#')[0] + '.js';
+      }
       this.load(url, {cache: false})
           .then(function(data) {
             var title = 'All Graphs', all_graphs;
@@ -237,7 +240,6 @@ var app = Sammy('body', function() {
             } else {
               all_graphs = true;
             }
-            $graphs.append('<h2>' + title + '</h2>');
             var graphs = data.graphs,
                 i = 0,
                 l = graphs.length,
@@ -259,10 +261,6 @@ var app = Sammy('body', function() {
               .appendTo($graphs).each(function() {
                 // actually replace the graph image
                 graph_obj.image($(this).find('img'));
-                // add a last class alternatingly to fix the display grid
-                if ((i+1)%2 == 0) {
-                  $(this).addClass('last');
-                }
                 // if its all graphs, delete operates on everything
                 if (all_graphs) {
                   $(this)
@@ -280,6 +278,7 @@ var app = Sammy('body', function() {
               });
             }
           });
+          Graphiti.resizeImages();
     },
     loadAndRenderDashboards: function() {
       var $dashboards = this.showPane('dashboards', '<h2>Dashboards</h2>');
@@ -568,6 +567,20 @@ var app = Sammy('body', function() {
       e.preventDefault();
       ctx.trigger('toggle-dashboard-creation', {target: $(this).parents('.dashboard')});
     });
+    $('#header h2').click(function(e) {
+        $('.menu ul').toggle();
+        e.stopPropagation();
+    });
+    $('body').click(function(e) {
+        $('.menu ul').hide();
+        e.stopPropagation();
+    });
+    $('select[name="n"]').change(function() {
+        var n = $('select[name="n"]').val();
+        writeArgument('n', n);
+        $('.menu ul').hide();
+    });
+    $('select[name="n"]').val(readArgument('n', 4));
 
     $('#graph-actions').delegate('.redraw', 'click', function(e) {
       e.preventDefault();
@@ -575,6 +588,46 @@ var app = Sammy('body', function() {
     });
   });
 
+});
+
+/**
+ * read argument from hash part of url
+ * if argument is not existing return default
+ */
+var readArgument = function(arg, def) {
+    var re = new RegExp(arg+"=([^&]+)"); 
+    var hash_argument = location.hash.match(re);
+    if (hash_argument != null && hash_argument.length == 2) {
+        return hash_argument[1];
+    }
+    return def;
+}
+
+/**
+ * write arg=value into hash part of url
+ */
+var writeArgument = function(arg, val) {
+    var args = location.hash.substring(1).split('&')
+    if (args[0] == '') {
+        args.shift();
+    }
+    var found = false;
+    for(i=0;i<args.length;i++) {
+        var key_val = args[i].split('=');
+        console.log(key_val);
+        if (key_val[0] == arg) {
+            args[i] = arg + '=' + val;
+            found = true;
+        }
+    }
+    if (!found) {
+        args.push(arg+'='+val);
+    }
+    location.hash = args.join('&');
+}
+
+$(window).resize(function() {
+  Graphiti.resizeImages();
 });
 
 $(function() {

@@ -16,46 +16,29 @@ body.bp {
   font-family: "MentoneSemiBold", Helvetica, Arial;
 }
 #container {
-  @include container;
   margin: 10px auto;
-  min-height: 500px;
+  width: auto;
 }
 #header {
-  background: #001247;
-  height: 60px;
-  h1 {
-    @include fancy-font;
-    color: #FFF;
-    padding: 10px;
-    margin: 0;
-    a {
-      text-decoration: none;
-      color: #FFF;
-    }
-  }
+  position: absolute;
+  top: 0px;
+  left: 0px;
   .menu {
-    @include container;
-    position: relative;
+    background: #fff;
+  }
+  h2 {
+    cursor: hand; 
+    cursor: pointer;
+    background: #4b4b4b;
+    @include border-bottom-radius(5px);
+    font-size: 15px;
+    color: #eee;
   }
   ul {
-    position: absolute;
-    right: 20px;
-    top: 0;
-    @include horizontal-list;
+    display: none;
+    padding: 1em;
     li {
-      a {
-        @include fancy-font;
-        @include border-bottom-radius(5px);
-        display:block;
-        font-size: 1.3em;
-        background: #00081f;
-        color: #FFF;
-        padding: 10px 20px 5px;
-        text-decoration: none;
-        &:hover {
-          background: #4b4b4b;
-        }
-      }
+      list-style: none;
     }
   }
 }
@@ -129,6 +112,7 @@ body.bp {
    border-top: 1px solid #CCC;
   .edit-head {
     @include column($blueprint-grid-columns, true);
+    clear: left;
     font-size: 1.4em;
     cursor: pointer;
     padding: 4px 0px;
@@ -266,13 +250,12 @@ h2 {
 }
 
 #graphs-pane {
-  @include column($blueprint-grid-columns, true);
+  width: 100%;
   @include clearfix;
   .graph {
-    @include column(($blueprint-grid-columns / 2));
-    &.last {
-      @include column(($blueprint-grid-columns / 2), true);
-    }
+    margin-right: 0px;
+    width: 600px;
+    float: left;
     h3 {
       @include fancy-font;
       margin: 0px;

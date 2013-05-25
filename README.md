@@ -10,6 +10,12 @@ Hence the header and footer are hidden.
 The number of graphs per line can be chosen by a menu button top left.
 The settings are saved in the url (via hash argument) => dashboard settings can be bookmarked
 
+### Menu closed
+![menu_closed](http://i.imgur.com/2tEZDM4.png)
+
+### Menu opened
+![menu_opened](http://i.imgur.com/KZGmtQ4.png)
+
 ## What 
 
 Graphiti allows you to easily access and manipulate the data you've collected in graphite in a couple of key ways. The focus is on ease of access, ease of recovery and ease of tweaking/manipulation:

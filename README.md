@@ -4,6 +4,12 @@ Graphiti is an alternate JavaScript and Ruby front-end and graph storage applica
 
 ![Graphiti](http://quirkey.com/skitch/http__aq.iriscouch.com_swinger_aq-mdd_graphiti1.jpg-20111211-135528.jpg)
 
+## Changes to Graphiti
+The general idea is to have the dashboard view as "full screen".
+Hence the header and footer are hidden.
+The number of graphs per line can be chosen by a menu button top left.
+The settings are saved in the url (via hash argument) => dashboard settings can be bookmarked
+
 ## What 
 
 Graphiti allows you to easily access and manipulate the data you've collected in graphite in a couple of key ways. The focus is on ease of access, ease of recovery and ease of tweaking/manipulation:

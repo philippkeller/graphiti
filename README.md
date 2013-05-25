@@ -11,10 +11,10 @@ The number of graphs per line can be chosen by a menu button top left.
 The settings are saved in the url (via hash argument) => dashboard settings can be bookmarked
 
 ### Menu closed
-![menu_closed](http://i.imgur.com/2tEZDM4.png)
+![menu_closed](https://www.diigo.com/item/p/qrssszbppcdoqeqzbaeeepdb/b3628c515e973d99d68ba33af92386c8)
 
 ### Menu opened
-![menu_opened](http://i.imgur.com/KZGmtQ4.png)
+![menu_opened](https://www.diigo.com/item/p/qrssszbppcdosoazbaeeepea/293b7066f4b9c13fee4189380c97450f)
 
 ## What 
 

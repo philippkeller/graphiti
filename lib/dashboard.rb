@@ -58,7 +58,9 @@ class Dashboard
       uuid_ref_before = redis.zrange("dashboards:#{slug}:graphs", ref_rank-1, 1)[0]
       ref_score = redis.zscore("dashboards:#{slug}:graphs", uuid_ref).to_f
       ref_before_score = redis.zscore("dashboards:#{slug}:graphs", uuid_ref_before).to_f
-      new_score = ref_before_score + 
+      new_score = ref_before_score + (ref_score - ref_before_score)/2
+    end
+  end
 
   def self.remove_graph(slug, uuid)
     redis.zrem "dashboards:#{slug}:graphs", uuid

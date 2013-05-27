@@ -13336,22 +13336,20 @@ Graphiti.resizeImages = function() {
     this.refresh();
 }
 
-
 /**
  * replace from parameter in all graphs on the page
  */
 Graphiti.overrideTiming = function() {
     var last = readArgument('last', "none");
     if (last == "none") {
-        location.reload();
+        return;
     }
     $('.pane .ggraph').each(function(index, value) {
     	var src = value.src;
-    	console.log(src);
     	src = src.replace(/from=.*?&/,'from=-'+last+'&');
-    	console.log(src);
     	value.src = src;
     });
+    this.refresh();
 }
 
 Graphiti.refresh = function(){

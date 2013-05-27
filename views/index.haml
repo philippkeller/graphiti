@@ -27,6 +27,7 @@
         %li
           %label{for: 'n'}
             Horizontal number of graphs
+          %br
           %select{:name => 'n'}
             %option{value: "2"}= "2"
             %option{value: "3"}= "3"
@@ -36,15 +37,23 @@
             %option{value: "8"}= "8"
         %li
           %label{for: 'last'}
-            Show last... (empty: each graph has own timing)
+            Show last...
+          %br
           %select{:name => 'last'}
-            %option{value: "1 hour", selected: params[:x] == "1 hour"}= "1 hour"
+            %option{value: "none"}= "none (each graph his own timing)"
+            %option{value: "10 minutes"}= "10 minutes"
+            %option{value: "1 hour"}=   "1 hour"
+            %option{value: "4 hours"}=  "4 hours"
+            %option{value: "8 hours"}=  "8 hours"
+            %option{value: "24 hours"}= "24 hours"
+            %option{value: "3 days"}=   "3 days"
+            %option{value: "7 days"}=   "7 days"
+            %option{value: "30 days"}=  "30 days"
+        %li
+          %label{for: 'auto-refresh'}
+            %input#auto-refresh{:name => 'auto-refresh', :type => 'checkbox', :checked => Graphiti.settings.auto_refresh['enabled'], 'data-interval' => Graphiti.settings.auto_refresh['interval']}
+              Refresh every #{Graphiti.settings.auto_refresh['interval']} seconds
   #container
-    #view-controls
-      -#
-        %label{for: 'auto-refresh'}
-          %input#auto-refresh{:name => 'auto-refresh', :type => 'checkbox', :checked => Graphiti.settings.auto_refresh['enabled'], 'data-interval' => Graphiti.settings.auto_refresh['interval']}
-            Refresh every #{Graphiti.settings.auto_refresh['interval']} seconds
     #loading-pane.pane
       %h2 ... Loading ...
     #dashboards-pane.pane{style: 'display:none;'}

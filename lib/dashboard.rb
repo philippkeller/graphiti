@@ -49,6 +49,16 @@ class Dashboard
     redis.zadd "dashboards", Time.now.to_f * 1000, slug
     {uuid: uuid, slug: slug}
   end
+  
+  def self.move_graph_before(slug, uuid, uuid_ref)
+    # move uuid before graph with uuid_ref
+    ref_rank = redis.zrank "dashboards:#{slug}:graphs", uuid_ref
+    if ref_rank == 0
+    else
+      uuid_ref_before = redis.zrange("dashboards:#{slug}:graphs", ref_rank-1, 1)[0]
+      ref_score = redis.zscore("dashboards:#{slug}:graphs", uuid_ref).to_f
+      ref_before_score = redis.zscore("dashboards:#{slug}:graphs", uuid_ref_before).to_f
+      new_score = ref_before_score + 
 
   def self.remove_graph(slug, uuid)
     redis.zrem "dashboards:#{slug}:graphs", uuid

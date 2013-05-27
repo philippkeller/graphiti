@@ -277,8 +277,10 @@ var app = Sammy('body', function() {
                 }
               });
             }
+          }).then(function(data) {
+              Graphiti.overrideTiming();
+              Graphiti.resizeImages();
           });
-          Graphiti.resizeImages();
     },
     loadAndRenderDashboards: function() {
       var $dashboards = this.showPane('dashboards', '<h2>Dashboards</h2>');
@@ -582,6 +584,13 @@ var app = Sammy('body', function() {
     });
     $('select[name="n"]').val(readArgument('n', 4));
 
+    $('select[name="last"]').change(function(e) {
+        var last = $('select[name="last"]').val();
+        writeArgument('last', encodeURIComponent(last));
+        $('.menu ul').hide();
+        e.stopPropagation();
+    });
+
     $('#graph-actions').delegate('.redraw', 'click', function(e) {
       e.preventDefault();
       ctx.redrawPreview();
@@ -614,7 +623,6 @@ var writeArgument = function(arg, val) {
     var found = false;
     for(i=0;i<args.length;i++) {
         var key_val = args[i].split('=');
-        console.log(key_val);
         if (key_val[0] == arg) {
             args[i] = arg + '=' + val;
             found = true;

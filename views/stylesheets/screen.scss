@@ -18,6 +18,12 @@ body.bp {
 #container {
   margin: 10px auto;
   width: auto;
+  min-height: 100%; /* real browsers */
+  height: auto !important; /* real browsers */
+  height: 100%; /* IE6: treated as min-height*/
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
 }
 #header {
   position: absolute;

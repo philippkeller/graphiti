@@ -156,7 +156,7 @@ var app = Sammy('body', function() {
       var url = '/metrics.js';
       url += '?q=' + search;
       if (ctx.app.searching) return;
-      if (search.length > 4) {
+      if (search.length > 2) {
         ctx.app.searching = true;
         $empty.hide();
         $loading.show();
@@ -172,6 +172,7 @@ var app = Sammy('body', function() {
             ctx.buildMetricsList($list, metrics);
           } else {
             $empty.show();
+            $list.hide();
           }
           ctx.app.searching = false;
         });
@@ -305,7 +306,7 @@ var app = Sammy('body', function() {
                     $(this).find('a.delete').css({
                         position: "absolute",
                         top: pos.top + 10 + "px",
-                        left: (pos.left + width - 20) + "px",
+                        left: (pos.left + width - 20) + "px"
                     }).show();
                 });
                 $(this).mouseleave(function() {

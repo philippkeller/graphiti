@@ -12870,7 +12870,7 @@ var app = Sammy('body', function() {
       return new Date(time * 1000).toString();
     },
     buildDashboardsDropdown: function(uuid) {
-      this.load('/dashboards.js', {cache: false, data: {uuid: uuid}})
+      this.load('/dashboards.js', {cache: false})
           .then(function(data) {
             var $select = $('select[name="dashboard"]');
             $select.html('');

@@ -12846,9 +12846,6 @@ var app = Sammy('body', function() {
           }
           ctx.app.searching = false;
         });
-      } else {
-        $empty.show();
-        $list.hide();
       }
     },
     addGraphMetric: function(metric) {

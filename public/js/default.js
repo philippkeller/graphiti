@@ -12938,26 +12938,33 @@ var app = Sammy('body', function() {
                 graph_obj.image($(this).find('img.ggraph'));
                 
                 // show delete button
-                $('a#delete').clone().attr('id', '')
+                if (all_graphs) {
+                    var delete_title = 'delete graph';
+                } else {
+                    var delete_title = 'remove from dashboard';
+                }
+                $('a#delete').clone().attr('id', '').attr('title', delete_title)
                 .click(function() {
                     var uuid = $(this).parent().find('a.edit')[0].href.split('/').reverse()[0];
                     var _this = this;
                     
                     if (all_graphs) {
                         // if its all graphs, delete operates on everything (not tested yet)
-                        $.ajax({
-                            type: 'post',
-                            data: '_method=DELETE',
-                            url: '/graphs/' + graph.uuid,
-                            complete: function(resp){
-                                $(_this).parent().remove();
-                            }
-                        });
+                        if(window.confirm("This will delete this graph forever. Ok?")) {
+                            $.ajax({
+                                type: 'post',
+                                data: '_method=DELETE',
+                                url: '/graphs/' + uuid,
+                                complete: function(resp){
+                                    $(_this).parent().remove();
+                                }
+                            });
+                        }
                     } else {
                         // otherwise it just removes the graphs
                         $.ajax({
                             type: 'post',
-                            data: 'dashboard='+data.slug+'&uuid='+graph.uuid+'&_method=DELETE',
+                            data: 'dashboard='+data.slug+'&uuid='+uuid+'&_method=DELETE',
                             url: '/graphs/dashboards',
                             complete: function(resp){
                                 $(_this).parent().remove();

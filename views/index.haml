@@ -71,7 +71,7 @@
             %h4 Graph
             %button.save.redraw Redraw
             %form.update{"data-action" => '/graphs/:uuid', method: 'put', style: 'display:none'}
-              %input.save{type: 'submit', value: 'Update'}
+              %input.save{type: 'submit', value: 'Save'}
             %form.save-new{action: '/graphs', method: 'post'}
               %input.save.create{type: 'submit', value: 'Save New'}
           %li.dashboard

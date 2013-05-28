@@ -6,14 +6,14 @@ Graphiti.resizeImages = function() {
     var ratio = 1.7;
     var graph_width = Math.floor(window_width / n);
     var graph_height = Math.floor(graph_width / ratio);
-    $('.pane .ggraph').each(function(index, value) {
+    $('.pane img.ggraph').each(function(index, value) {
     	var src = value.src;
     	src = src.replace(/width=.*?&/,'width='+graph_width+'&');
     	src = src.replace(/height=.*?&/,'height='+graph_height+'&');
     	value.src = src;
     });
     $('.graph').width(graph_width + 'px');
-    $('#graphs-pane .graph img').height(graph_height + 'px');
+    $('.graph img.ggraph').height(graph_height + 'px');
     this.refresh();
 }
 

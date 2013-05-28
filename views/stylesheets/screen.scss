@@ -267,9 +267,13 @@ h2 {
       margin: 0px;
       padding: 0px;
     }
-    img {
+    img.ggraph {
       width: 100%;
       height: $blueprint-grid-width * ($blueprint-grid-columns / 2) * 0.75;
+    }
+    img.delete {
+      width: auto;
+      height: auto;
     }
   }
 }

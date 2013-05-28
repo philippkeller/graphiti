@@ -260,21 +260,49 @@ var app = Sammy('body', function() {
               .show()
               .appendTo($graphs).each(function() {
                 // actually replace the graph image
-                graph_obj.image($(this).find('img'));
-                // if its all graphs, delete operates on everything
-                if (all_graphs) {
-                  $(this)
-                  .find('.delete')
-                  .attr('action', '/graphs/' + graph.uuid);
-                // otherwise it just removes the graphs
-                } else {
-                  $(this)
-                  .find('.delete')
-                  .attr('action', '/graphs/dashboards')
-                  .find('[name=dashboard]').val(data.slug).end()
-                  .find('[name=uuid]').val(graph.uuid).end()
-                  .find('[type=submit]').val('Remove');
-                }
+                graph_obj.image($(this).find('img.ggraph'));
+                
+                // show delete button
+                $('a#delete').clone().attr('id', '')
+                .click(function() {
+                    var uuid = $(this).parent().find('a.edit')[0].href.split('/').reverse()[0];
+                    var _this = this;
+                    
+                    if (all_graphs) {
+                        // if its all graphs, delete operates on everything (not tested yet)
+                        $.ajax({
+                            type: 'post',
+                            data: '_method=DELETE',
+                            url: '/graphs/' + graph.uuid,
+                            complete: function(resp){
+                                $(_this).parent().remove();
+                            }
+                        });
+                    } else {
+                        // otherwise it just removes the graphs
+                        $.ajax({
+                            type: 'post',
+                            data: 'dashboard='+data.slug+'&uuid='+graph.uuid+'&_method=DELETE',
+                            url: '/graphs/dashboards',
+                            complete: function(resp){
+                                $(_this).parent().remove();
+                            }
+                        });
+                    }
+                }).appendTo(this);
+                $(this).mouseover(function() {
+                    var pos = $(this).position();
+                    var width = $(this).outerWidth();
+                    //show the menu directly over the placeholder
+                    $(this).find('a.delete').css({
+                        position: "absolute",
+                        top: pos.top + 10 + "px",
+                        left: (pos.left + width - 20) + "px",
+                    }).show();
+                });
+                $(this).mouseleave(function() {
+                    $(this).find('.delete').hide();
+                });
               });
             }
           }).then(function(data) {
@@ -590,7 +618,6 @@ var app = Sammy('body', function() {
         $('.menu ul').hide();
         e.stopPropagation();
     });
-
     $('#graph-actions').delegate('.redraw', 'click', function(e) {
       e.preventDefault();
       ctx.redrawPreview();

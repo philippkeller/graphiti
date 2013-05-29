@@ -12612,7 +12612,10 @@ Graphiti.Graph.prototype = {
       parts.push(key + "=" + encodeURIComponent(value));
     });
     $.each(this.parsedTargets, function(c, target){
-      parts.push("target=" + encodeURIComponent(target));
+      var _target = encodeURIComponent(target);
+      // needed in order to make aliasSub working with backslashes in the second arg
+      _target = _target.replace(/%5C%5C/g, '\\');
+      parts.push("target=" + _target);
     });
     parts.push('_timestamp_=' + new Date().getTime());
     return url + parts.join('&') + '#.png';

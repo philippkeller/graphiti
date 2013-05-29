@@ -317,6 +317,7 @@ var app = Sammy('body', function() {
           }).then(function(data) {
               Graphiti.overrideTiming();
               Graphiti.resizeImages();
+              Graphiti.overrideFontsize();
           });
     },
     loadAndRenderDashboards: function() {
@@ -618,6 +619,14 @@ var app = Sammy('body', function() {
         var n = $('select[name="n"]').val();
         writeArgument('n', n);
         $('.menu ul').hide();
+    });
+    $('input#fontsize').change(function() {
+        var val = $('input#fontsize').val();
+        writeArgument('fontsize', val);
+        $('.menu ul').hide();
+    });
+    $('input#fontsize').click(function(e) {
+        e.stopPropagation();
     });
     $('select[name="n"]').val(readArgument('n', 4));
 

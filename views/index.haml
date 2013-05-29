@@ -50,6 +50,11 @@
             %option{value: "7 days"}=   "7 days"
             %option{value: "30 days"}=  "30 days"
         %li
+          %label{for: 'fontsize'}
+            font size
+          %br
+          %input{:type => 'text', :value => '15', :name => 'fontsize', :id => 'fontsize'}
+        %li
           %label{for: 'auto-refresh'}
             %input#auto-refresh{:name => 'auto-refresh', :type => 'checkbox', :checked => Graphiti.settings.auto_refresh['enabled'], 'data-interval' => Graphiti.settings.auto_refresh['interval']}
               Refresh every #{Graphiti.settings.auto_refresh['interval']} seconds

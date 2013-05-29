@@ -33,6 +33,20 @@ Graphiti.overrideTiming = function() {
     this.refresh();
 }
 
+/**
+ * replace from parameter in all graphs on the page
+ */
+Graphiti.overrideFontsize = function() {
+    var fontsize = readArgument('fontsize', "15");
+    $('.pane .ggraph').each(function(index, value) {
+    	var src = value.src;
+    	src = src.replace(/fontSize=.*?&/,'fontSize='+fontsize+'&');
+    	value.src = src;
+    });
+    this.refresh();
+}
+
+
 Graphiti.refresh = function(){
     $('#graphs-pane div.graph img.ggraph').each(function() {
       var jqt = $(this);

@@ -12995,6 +12995,7 @@ var app = Sammy('body', function() {
           }).then(function(data) {
               Graphiti.overrideTiming();
               Graphiti.resizeImages();
+              Graphiti.overrideFontsize();
           });
     },
     loadAndRenderDashboards: function() {
@@ -13297,6 +13298,14 @@ var app = Sammy('body', function() {
         writeArgument('n', n);
         $('.menu ul').hide();
     });
+    $('input#fontsize').change(function() {
+        var val = $('input#fontsize').val();
+        writeArgument('fontsize', val);
+        $('.menu ul').hide();
+    });
+    $('input#fontsize').click(function(e) {
+        e.stopPropagation();
+    });
     $('select[name="n"]').val(readArgument('n', 4));
 
     $('select[name="last"]').change(function(e) {
@@ -13390,6 +13399,20 @@ Graphiti.overrideTiming = function() {
     });
     this.refresh();
 }
+
+/**
+ * replace from parameter in all graphs on the page
+ */
+Graphiti.overrideFontsize = function() {
+    var fontsize = readArgument('fontsize', "15");
+    $('.pane .ggraph').each(function(index, value) {
+    	var src = value.src;
+    	src = src.replace(/fontSize=.*?&/,'fontSize='+fontsize+'&');
+    	value.src = src;
+    });
+    this.refresh();
+}
+
 
 Graphiti.refresh = function(){
     $('#graphs-pane div.graph img.ggraph').each(function() {

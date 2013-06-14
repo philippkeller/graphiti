@@ -13281,7 +13281,7 @@ var app = Sammy('body', function() {
       .live('click', disableSave)
       .live('focus', disableSave)
       .live('blur', disableSave);
-    $('.dashboard button[rel=create], .dashboard a[rel="cancel"]').live('click', function(e) {
+    $('.dashboard button[rel=create], .dashboard a[rel="cancel"]').click(function(e) {
       e.preventDefault();
       ctx.trigger('toggle-dashboard-creation', {target: $(this).parents('.dashboard')});
     });

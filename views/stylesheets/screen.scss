@@ -253,9 +253,9 @@ h2 {
   width: 100%;
   @include clearfix;
   padding-top: 20px;
+  
   .graph {
     margin-right: 0px;
-    width: 600px;
     float: left;
     h3 {
       @include fancy-font;

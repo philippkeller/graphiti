@@ -302,7 +302,7 @@ var app = Sammy('body', function() {
                 $(this).mouseover(function() {
                     var pos = $(this).position();
                     var width = $(this).outerWidth();
-                    //show the menu directly over the placeholder
+                    // show the red delete button
                     $(this).find('a.delete').css({
                         position: "absolute",
                         top: pos.top + 10 + "px",

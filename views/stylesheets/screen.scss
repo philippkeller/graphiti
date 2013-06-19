@@ -23,6 +23,7 @@ body.bp {
   position: absolute;
   top: 0px;
   left: 0px;
+  z-index: 2;
   .menu {
     background: #fff;
   }
@@ -149,7 +150,6 @@ body.bp {
   background: #e5e5e5;
   padding: 5px;
   width: 100%;
-  z-index: 15;
   .search {
     width: 95%;
   }

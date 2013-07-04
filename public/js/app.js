@@ -640,6 +640,12 @@ var app = Sammy('body', function() {
       e.preventDefault();
       ctx.redrawPreview();
     });
+    $("#graphs-pane").sortable({
+        start: function(event, ui) {
+            $('.delete').hide();
+        }
+    });
+    $("#graphs-pane").disableSelection();
   });
 
 });

@@ -108,6 +108,10 @@ Graphiti.Graph.prototype = {
     var url = this.urlBase;
     var parts = [];
     $.each(this.options, function(key,value){
+      // asPercentage needs value to be without surrounding quotes
+      if ($.inArray(key, ['asPercentage']) >= 0) {
+        value = value.subsring(1, value.length -1);
+      }
       parts.push(key + "=" + encodeURIComponent(value));
     });
     $.each(this.parsedTargets, function(c, target){

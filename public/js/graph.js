@@ -87,7 +87,12 @@ Graphiti.Graph.prototype = {
           target = [key,"(",json,",",target,")"].join("");
         } else {
           if (value !== true){
-            json = JSON.stringify(value);
+	    // asPercentage needs value to be without surrounding quotes
+	    if ($.inArray(key, ['asPercent']) >= 0) {
+	      json = value;
+	    } else {
+	      json = JSON.stringify(value);
+	    }
             target = "" + key
               + "(" +
                 target + "," +
@@ -108,12 +113,9 @@ Graphiti.Graph.prototype = {
     var url = this.urlBase;
     var parts = [];
     $.each(this.options, function(key,value){
-      // asPercentage needs value to be without surrounding quotes
-      if ($.inArray(key, ['asPercentage']) >= 0) {
-        value = value.subsring(1, value.length -1);
-      }
       parts.push(key + "=" + encodeURIComponent(value));
     });
+    console.log(this.parsedTargets);
     $.each(this.parsedTargets, function(c, target){
       var _target = encodeURIComponent(target);
       // needed in order to make aliasSub working with backslashes in the second arg

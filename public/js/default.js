@@ -27945,6 +27945,7 @@ var app = Sammy('body', function() {
 
               $graph
               .clone()
+              .attr('id', graph.uuid)
               .find('.title').text(graph.title || 'Untitled').end()
               .find('a.edit').attr('href', '/graphs/' + graph.uuid).end()
               .show()
@@ -28328,6 +28329,24 @@ var app = Sammy('body', function() {
       e.preventDefault();
       ctx.redrawPreview();
     });
+    // make graphs drag'n'drop. update in redis when dropped
+    $("#graphs-pane").sortable({
+        start: function(event, ui) {
+            $('.delete').hide();
+        },
+        update: function(event, ui) {
+            var id = ui.item.attr('id');
+            var id_next = ui.item.next().attr('id');
+            var slug = location.pathname.split('/').reverse()[0];
+            $.ajax({
+                type: 'post',
+                data: 'slug='+slug+'uuid='+id+'&uuid_ref='+id_next,
+                url: '/graphs/reorder'
+            });
+            
+        }
+    });
+    $("#graphs-pane").disableSelection();
   });
 
 });

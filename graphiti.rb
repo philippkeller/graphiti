@@ -106,6 +106,10 @@ class Graphiti < Sinatra::Base
   delete '/graphs/dashboards' do
     json Dashboard.remove_graph(params[:dashboard], params[:uuid])
   end
+  
+  post '/graphs/reorder' do
+    json Dashboard.move_graph_before(params[:slug], params[:uuid], params[:uuid_before])
+  end
 
   delete '/graphs/:uuid' do
     Graph.destroy(params[:uuid])
